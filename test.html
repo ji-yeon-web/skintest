@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>피부성분 테스트 질문</title>
+  <style>
+    body {
+      font-family: '나눔고딕', sans-serif;
+      background: #fff;
+      padding: 20px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    h2 {
+      color: #333;
+    }
+    .question {
+      margin-top: 30px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    .options {
+      margin-top: 15px;
+    }
+    button.option-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #3873e9;
+      border-radius: 8px;
+      background: white;
+      color: #3873e9;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button.option-btn:hover {
+      background-color: #3873e9;
+      color: white;
+    }
+    #nextBtn {
+      margin-top: 30px;
+      padding: 15px;
+      width: 100%;
+      font-size: 18px;
+      background-color: #3873e9;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>내 피부 상태를 알려주세요</h2>
+  <div id="questionContainer">
+    <!-- 질문과 선택지가 여기에 동적으로 들어감 -->
+  </div>
+  <button id="nextBtn">다음 질문</button>
+
+  <script>
+    const questions = [
+      {
+        question: "최근 피부 트러블이 있나요?",
+        options: ["예", "아니오"]
+      },
+      {
+        question: "피부가 자주 건조한가요?",
+        options: ["예", "아니오"]
+      },
+      {
+        question: "가장 신경 쓰이는 피부 고민은 무엇인가요?",
+        options: ["건조함", "트러블", "붉어짐", "기타"]
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let answers = [];
+
+    const questionContainer = document.getElementById('questionContainer');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function showQuestion(index) {
+      const q = questions[index];
+      questionContainer.innerHTML = `
+        <div class="question">${q.question}</div>
+        <div class="options">
+          ${q.options.map((opt, i) => `<button class="option-btn" data-index="${i}">${opt}</button>`).join('')}
+        </div>
+      `;
+      nextBtn.style.display = 'none';
+
+      document.querySelectorAll('.option-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          answers[index] = button.textContent;
+          nextBtn.style.display = 'block';
+          // 선택한 버튼 스타일 변경
+          document.querySelectorAll('.option-btn').forEach(btn => btn.style.backgroundColor = 'white');
+          button.style.backgroundColor = '#3873e9';
+          button.style.color = 'white';
+        });
+      });
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (currentQuestionIndex < questions.length - 1) {
+        currentQuestionIndex++;
+        showQuestion(currentQuestionIndex);
+        nextBtn.style.display = 'none';
+      } else {
+        // 모든 질문 완료 후 결과 페이지로 이동 또는 결과 표시
+        alert('테스트 완료!\n답변: ' + answers.join(', '));
+        // 실제 결과 페이지로 이동 시 URL 변경
+        // window.location.href = 'result.html';
+      }
+    });
+
+    // 첫 질문 시작
+    showQuestion(currentQuestionIndex);
+  </script>
+
+</body>
+</html>
