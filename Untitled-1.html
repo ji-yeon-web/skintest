@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>내 피부성분 테스트 시작</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #f9f9f9;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    p {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #555;
+    }
+    .question {
+      background: white;
+      padding: 15px 20px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      margin-top: 25px;
+      background: #3873e9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #2c5fcc;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>내 피부성분 테스트</h1>
+  <p>내 피부에 꼭 맞는 성분을 찾아보세요!<br>간단한 질문에 답하고 추천을 받아보세요.</p>
+
+  <form id="surveyForm">
+    <div class="question">
+      <strong>1. 최근 피부 트러블이 있나요?</strong>
+      <label><input type="radio" name="q1" value="예" required> 예</label>
+      <label><input type="radio" name="q1" value="아니오"> 아니오</label>
+    </div>
+
+    <div class="question">
+      <strong>2. 피부가 자주 건조한가요?</strong>
+      <label><input type="radio" name="q2" value="예" required> 예</label>
+      <label><input type="radio" name="q2" value="아니오"> 아니오</label>
+    </div>
+
+    <div class="question">
+      <strong>3. 가장 신경 쓰이는 피부 고민은 무엇인가요?</strong>
+      <label><input type="radio" name="q3" value="건조함" required> 건조함</label>
+      <label><input type="radio" name="q3" value="트러블"> 트러블</label>
+      <label><input type="radio" name="q3" value="붉어짐"> 붉어짐</label>
+      <label><input type="radio" name="q3" value="기타"> 기타</label>
+    </div>
+
+    <button type="submit">결과 보기 (샘플)</button>
+  </form>
+
+  <script>
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      let resultText = '선택하신 답변:\n';
+      for (const [key, value] of formData.entries()) {
+        resultText += `${key}: ${value}\n`;
+      }
+      alert(resultText);
+    });
+  </script>
+
+</body>
+</html>
+
+
